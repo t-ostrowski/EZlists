@@ -1,5 +1,6 @@
 package com.ostro.myshoppinglist.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -15,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ostro.myshoppinglist.R;
 import com.ostro.myshoppinglist.base.BaseActivity;
-import com.ostro.myshoppinglist.util.ToastUtils;
+import com.ostro.myshoppinglist.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,6 +51,7 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.sign_up_title));
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -101,6 +103,8 @@ public class SignUpActivity extends BaseActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(SignUpActivity.this,
                                             getString(R.string.sign_up_successful), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                                    startActivity(intent);
                                 } else {
                                     Toast.makeText(SignUpActivity.this,
                                             getString(R.string.sign_up_failed), Toast.LENGTH_LONG).show();

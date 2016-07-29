@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DynamicHeightImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="ProgressButton">
+        <attr name="pbText" format="string"/>
+        <attr name="pbButtonStyle" format="enum">
+            <enum name="accentButton" value="0" />
+            <enum name="accentButtonBig" value="1" />
+            <enum name="blackButton" value="2" />
+            <enum name="blackButtonBig" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ThreeStateCheckBox">
+        <attr name="label" format="string" />
+        <attr name="shadow" format="boolean" />
+        <attr name="state" format="integer" />
+    </declare-styleable>
+
+</resources>

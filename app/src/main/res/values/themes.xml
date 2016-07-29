@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Base"/>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorControlNormal">@color/textColorLight</item>-->
+        <item name="colorControlHighlight">@color/colorControlHighlightOpacity</item>
+        <item name="android:colorPressedHighlight">@color/colorControlHighlightOpacity</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!--<item name="colorControlHighlight">@color/dark_brown</item>-->
+
+        <item name="android:textColorPrimary">#333333</item>
+        <item name="android:textColorPrimaryInverse">#FFFFFF</item>
+
+        <!--<item name="android:selectableItemBackground">@color/colorControlHighlight</item>-->
+
+        <!--<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>-->
+        <!--<item name="android:scrollbarThumbHorizontal">@drawable/scrollbar_horizontal</item>-->
+        <!--<item name="android:scrollbarThumbVertical">@drawable/scrollbar</item>-->
+
+        <!--<item name="buttonAccent">@style/Widget.Button.Accent</item>-->
+        <!--<item name="buttonAccentBig">@style/Widget.Button.Accent.Big</item>-->
+        <!--<item name="buttonBlack">@style/Widget.Button.Black</item>-->
+        <!--<item name="buttonBlackBig">@style/Widget.Button.Black.Big</item>-->
+        <!--<item name="textAction">@style/Widget.Button.Transparent</item>-->
+        <!--<item name="textActionBig">@style/Widget.Button.Transparent.Big</item>-->
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--<item name="windowActionModeOverlay">true</item>-->
+    </style>
+
+</resources>

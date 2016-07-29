@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ostro.myshoppinglist.R;
 import com.ostro.myshoppinglist.base.BaseActivity;
+import com.ostro.myshoppinglist.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,6 +50,7 @@ public class SignInActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.login_title));
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -88,11 +90,11 @@ public class SignInActivity extends BaseActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignInActivity.this,
-                                        "La connexion est un succès", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplication(), MainActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(SignInActivity.this,
-                                        "Erreur lors de la connexion, veuillez réessayer ultérieurement", Toast.LENGTH_LONG).show();
+                                        getString(R.string.error_logging_in), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
