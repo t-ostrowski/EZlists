@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MyShoppingList</string>
+
+    <string name="login.email">Email</string>
+    <string name="login.password">Password</string>
+    <string name="login.sign_in">Se connecter</string>
+    <string name="login.sign_up">Pas encore de compte ? S\'inscrire</string>
+
+    <string name="sign_up.last_name">Nom</string>
+    <string name="sign_up.first_name">Prénom</string>
+    <string name="sign_up.password_confirmation">Confirmation password</string>
+    <string name="sign_up.signing_up">S\'inscrire</string>
+    <string name="sign_up.passwords_not_equal">Les deux mots de passe ne sont pas identiques</string>
+    <string name="sign_up.successful">La création s\'est déroulée avec succès !</string>
+    <string name="sign_up.failed">Erreur lors de la création de compte, veuillez réessayer</string>
+
+    <string name="error.fill_all_fields">Veuillez renseigner tous les champs</string>
+</resources>
