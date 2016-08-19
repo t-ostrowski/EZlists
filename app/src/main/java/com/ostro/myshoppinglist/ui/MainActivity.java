@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.ostro.myshoppinglist.R;
 import com.ostro.myshoppinglist.auth.SignInActivity;
 import com.ostro.myshoppinglist.ui.drawer.NavigationDrawerActivity;
+import com.ostro.myshoppinglist.ui.list.ListFragment;
 import com.ostro.myshoppinglist.ui.widget.CustomAlertDialog;
 
 import butterknife.BindString;
@@ -27,14 +28,13 @@ public class MainActivity extends NavigationDrawerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
     }
 
     @Override
     protected Fragment getFragment(int position) {
         switch (position) {
             case FRAGMENT_LIST:
-                return new Fragment();
+                return new ListFragment();
             case FRAGMENT_ACCOUNT:
                 return new Fragment();
             case DIALOG_LOGOUT:

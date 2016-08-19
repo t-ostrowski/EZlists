@@ -26,4 +26,9 @@
     <string name="logout.title">Déconnexion</string>
     <string name="logout.message">Se déconnecter ?</string>
     <string name="yes">Oui</string>
+
+    <string name="error.network.connection">Vous n\'êtes pas connecté à Internet&#8230;</string>
+    <string name="error.network.problem">Problème de connexion&#8230;</string>
+    <string name="error.network.time_out">La connexion a expirée&#8230;</string>
+    <string name="error.unknown">Il semble que quelque chose n\'ait pas fonctionné correctement&#8230;</string>
 </resources>

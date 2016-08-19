@@ -4,7 +4,7 @@
              android:layout_height="?attr/listPreferredItemHeightSmall"
              android:layout_marginBottom="@dimen/global_widget_margin"
              android:layout_marginTop="@dimen/global_widget_margin"
-             android:background="@color/colorPrimary">
+             android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/icon"
