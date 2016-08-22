@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.firebase.client.Firebase;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -21,6 +23,8 @@ public class MyShoppingListApp extends Application {
         super.onCreate();
         Firebase.setAndroidContext(this);
         Timber.plant(new Timber.DebugTree());
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        Realm.setDefaultConfiguration(realmConfig);
     }
 
     public static MyShoppingListApp get() {

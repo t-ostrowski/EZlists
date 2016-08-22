@@ -12,7 +12,7 @@ import com.ostro.myshoppinglist.BuildConfig;
 
 public class LogUtils {
 
-    private static final String LOG_PREFIX = "salti_";
+    private static final String LOG_PREFIX = "shopping_list_";
     private static final int LOG_PREFIX_LENGTH = LOG_PREFIX.length();
     private static final int MAX_LOG_TAG_LENGTH = 23;
     private static final boolean forceDebug = true;

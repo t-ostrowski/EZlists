@@ -4,5 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorControlHighlight">#FFEB3B</color>
     <color name="colorControlHighlightOpacity">#BFFFEB3B</color>
+    <color name="colorControlHighlightOpacitySmall">#50FFEB3B</color>
+
+    <color name="colorGreyBackground">#f6f6f6</color>
+
 </resources>

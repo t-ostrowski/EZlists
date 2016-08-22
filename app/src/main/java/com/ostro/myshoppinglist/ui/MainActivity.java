@@ -38,7 +38,7 @@ public class MainActivity extends NavigationDrawerActivity {
             case FRAGMENT_ACCOUNT:
                 return new Fragment();
             case DIALOG_LOGOUT:
-                return new Fragment();
+                return new ListFragment();
             default:
                 return new Fragment();
         }
@@ -52,6 +52,7 @@ public class MainActivity extends NavigationDrawerActivity {
             case FRAGMENT_ACCOUNT:
                 return "fragment_account";
             case DIALOG_LOGOUT:
+                getLogoutDialog();
                 return null;
             default:
                 return "fragment_list";
@@ -68,6 +69,12 @@ public class MainActivity extends NavigationDrawerActivity {
                 .setTitle(strTitle)
                 .setMessage(strMessage)
                 .setPositiveListener(strYes, mDialogLogoutListener)
+                .setNegativeListener(getString(R.string.cancel), new CustomAlertDialog.NegativeListener() {
+                    @Override
+                    public void onNegativeClicked(CustomAlertDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
                 .show(this.getSupportFragmentManager(), "dialog_logout");
     }
 

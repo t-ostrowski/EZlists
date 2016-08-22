@@ -32,10 +32,6 @@ public class SignUpActivity extends BaseActivity {
 
     @BindView(R.id.main_container)
     LinearLayout mainViewContainer;
-    @BindView(R.id.et_last_name)
-    EditText etLastName;
-    @BindView(R.id.et_first_name)
-    EditText etFirstName;
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_password)
@@ -87,9 +83,7 @@ public class SignUpActivity extends BaseActivity {
 
     @OnClick(R.id.btn_sign_up)
     public void onSignUpClick() {
-        if (validateFields(etLastName.getText().toString(),
-                etFirstName.getText().toString(),
-                etEmail.getText().toString(),
+        if (validateFields(etEmail.getText().toString(),
                 etPassword.getText().toString(),
                 etPasswordConfirmation.getText().toString())) {
             if (passwordsAreEqual(etPassword.getText().toString(),
@@ -119,12 +113,9 @@ public class SignUpActivity extends BaseActivity {
         }
     }
 
-    private boolean validateFields(String lastname, String firstname,
-                                   String email, String password,
+    private boolean validateFields(String email, String password,
                                    String passwordConfirmation) {
-        return !TextUtils.isEmpty(lastname) &&
-                !TextUtils.isEmpty(firstname) &&
-                !TextUtils.isEmpty(email) &&
+        return !TextUtils.isEmpty(email) &&
                 !TextUtils.isEmpty(password) &&
                 !TextUtils.isEmpty(passwordConfirmation);
     }

@@ -51,6 +51,12 @@ public abstract class ClickableRecyclerAdapter<O, VH extends RecyclerView.ViewHo
         return mItems.isEmpty();
     }
 
+    public void clearAll() {
+        for (int i=0; i<mItems.size(); i++) {
+            removeItem(i);
+        }
+    }
+
     @Nullable
     public O getItem(int position) {
         try {
@@ -69,6 +75,10 @@ public abstract class ClickableRecyclerAdapter<O, VH extends RecyclerView.ViewHo
 
     public void setItems(@NonNull List<O> list) {
         mItems = list;
+    }
+
+    public List<O> getItems() {
+        return mItems;
     }
 
     public void addItems(@NonNull List<O> list) {

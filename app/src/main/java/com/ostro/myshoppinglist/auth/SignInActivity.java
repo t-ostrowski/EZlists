@@ -81,11 +81,13 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.btn_sign_in)
     public void onSignInClick() {
-        if (validateFields(etEmail.getText().toString(),
-                etPassword.getText().toString())) {
+//        if (validateFields(etEmail.getText().toString(),
+//                etPassword.getText().toString())) {
 
-            mAuth.signInWithEmailAndPassword(etEmail.getText().toString(),
-                    etPassword.getText().toString())
+//            mAuth.signInWithEmailAndPassword(etEmail.getText().toString(),
+//                    etPassword.getText().toString())
+            mAuth.signInWithEmailAndPassword("ostrowski.thomas@gmail.com",
+                    "password")
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,9 +101,9 @@ public class SignInActivity extends BaseActivity {
                         }
                     });
 
-        } else {
-            errorSnackBar(mainViewContainer, getString(R.string.error_fill_all_fields));
-        }
+//        } else {
+//            errorSnackBar(mainViewContainer, getString(R.string.error_fill_all_fields));
+//        }
     }
 
     private boolean validateFields(String email, String password) {

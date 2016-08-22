@@ -3,11 +3,33 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_wording_item"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/global_margin"
-        android:text="Coucou"/>
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/clickable_highlight">
+
+        <TextView
+            android:id="@+id/tv_wording_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/global_margin"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/btn_delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_delete"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/global_margin"
+            android:layout_marginEnd="@dimen/global_margin"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </LinearLayout>
