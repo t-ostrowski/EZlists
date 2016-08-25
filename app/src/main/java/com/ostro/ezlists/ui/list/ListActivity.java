@@ -1,5 +1,8 @@
 package com.ostro.ezlists.ui.list;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import com.ostro.ezlists.R;
 import com.ostro.ezlists.base.ToolbarActivity;
 import com.ostro.ezlists.model.List;
+import com.ostro.ezlists.ui.list.dialog.EditListDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,6 +60,12 @@ public class ListActivity extends ToolbarActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        realm.close();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         initRecycler(this);
@@ -84,12 +94,6 @@ public class ListActivity extends ToolbarActivity {
     }
 
     @Override
-    public void onStop() {
-        realm.close();
-        super.onStop();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Toolbar toolbar = getToolbar();
         if (toolbar != null) {
@@ -97,6 +101,18 @@ public class ListActivity extends ToolbarActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
         return true;
+    }
+
+    private void showEditListDialog(int listId) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment assignmentDialogFragment = EditListDialog.newInstance(listId);
+        assignmentDialogFragment.show(ft, "edit_list_dialog");
     }
 
     @OnClick(R.id.btn_add_list)

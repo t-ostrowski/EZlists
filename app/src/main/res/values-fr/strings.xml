@@ -26,6 +26,10 @@
     <string name="list.no_list_message">Vous n\'avez pas de liste pour le moment, créez en une pour commencer à utiliser l\'application.</string>
     <string name="list.add_new_item">Ajouter un nouvel élément&#8230;</string>
     <string name="list.add_new_list">Ajouter une nouvelle liste&#8230;</string>
+    <string name="list.edit_list">Édition liste</string>
+    <string name="list.name">Nom</string>
+    <string name="list.delete">Supprimer</string>
+    <string name="list.validate">Valider</string>
 
     <string name="drawer.my_list">Ma liste</string>
     <string name="drawer.my_account">Mon compte</string>

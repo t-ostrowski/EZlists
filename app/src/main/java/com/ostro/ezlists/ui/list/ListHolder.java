@@ -11,9 +11,11 @@ import com.ostro.ezlists.R;
 import com.ostro.ezlists.base.clickable_recycler.ClickableHolder;
 import com.ostro.ezlists.model.List;
 import com.ostro.ezlists.ui.details.DetailsListActivity;
+import com.ostro.ezlists.ui.list.dialog.EditListDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * Created by Thomas Ostrowski
@@ -51,6 +53,18 @@ public class ListHolder extends ClickableHolder {
                     Intent intent = new Intent(adapter.getContext(), DetailsListActivity.class);
                     intent.putExtra("LIST_ID", list.getId());
                     adapter.getContext().startActivity(intent);
+                }
+            }
+        }
+    }
+
+    @OnClick(R.id.btn_edit_list)
+    public void onEditList() {
+        if (adapter != null) {
+            List list = adapter.getItem(getAdapterPosition());
+            if (list != null) {
+                if (list.getId() > 0L) {
+                    EditListDialog.newInstance(list.getId());
                 }
             }
         }

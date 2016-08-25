@@ -56,13 +56,22 @@ public class DetailsListActivity extends ToolbarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getString(R.string.list_your_lists));
         realm = Realm.getDefaultInstance();
+        if (!TextUtils.isEmpty(getNameList())) {
+            setTitle(getNameList());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        realm.close();
+        super.onDestroy();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         initRecycler(this);
 
         etNewItem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -88,12 +97,6 @@ public class DetailsListActivity extends ToolbarActivity {
     public void onResume() {
         super.onResume();
         loadData();
-    }
-
-    @Override
-    public void onStop() {
-        realm.close();
-        super.onStop();
     }
 
     @Override
@@ -137,6 +140,17 @@ public class DetailsListActivity extends ToolbarActivity {
 
     private long getListId() {
         return getIntent().getLongExtra("LIST_ID", 0L);
+    }
+
+    private String getNameList() {
+        long listId = getIntent().getLongExtra("LIST_ID", 0L);
+        if (listId != 0L) {
+            com.ostro.ezlists.model.List list = realm.where(com.ostro.ezlists.model.List.class)
+                    .equalTo("id", listId)
+                    .findFirst();
+            return list.getName();
+        }
+        return "";
     }
 
     private void displayEmptyStateIfEmpty(ItemAdapter adapter) {
