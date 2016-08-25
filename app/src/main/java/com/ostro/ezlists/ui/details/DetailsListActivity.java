@@ -1,11 +1,9 @@
-package com.ostro.ezlists.ui.list;
+package com.ostro.ezlists.ui.details;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -52,13 +50,13 @@ public class DetailsListActivity extends ToolbarActivity {
 
     @Override
     public int getLayoutResources() {
-        return R.layout.details_list_activity;
+        return R.layout.activity_details_list;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getString(R.string.list_your_list));
+        setTitle(getString(R.string.list_your_lists));
         realm = Realm.getDefaultInstance();
     }
 
@@ -73,8 +71,10 @@ public class DetailsListActivity extends ToolbarActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (!TextUtils.isEmpty(etNewItem.getText().toString())) {
-                        Item itemToAdd = new Item(etNewItem.getText().toString().trim());
-                        addItemToList(itemToAdd);
+                        if (getListId() != 0L) {
+                            Item itemToAdd = new Item(etNewItem.getText().toString().trim(), getListId());
+                            addItemToList(itemToAdd);
+                        }
                     }
                     handled = true;
                 }
@@ -82,7 +82,6 @@ public class DetailsListActivity extends ToolbarActivity {
             }
         });
         displayEmptyStateIfEmpty(adapter);
-        realm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -99,11 +98,6 @@ public class DetailsListActivity extends ToolbarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Toolbar toolbar = getToolbar();
-        if (toolbar != null) {
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_list, menu);
         return true;
@@ -126,8 +120,10 @@ public class DetailsListActivity extends ToolbarActivity {
     @OnClick(R.id.btn_add_item)
     public void onAddItemClick() {
         if (!TextUtils.isEmpty(etNewItem.getText().toString())) {
-            Item itemToAdd = new Item(etNewItem.getText().toString().trim());
-            addItemToList(itemToAdd);
+            if (getListId() != 0L) {
+                Item itemToAdd = new Item(etNewItem.getText().toString().trim(), getListId());
+                addItemToList(itemToAdd);
+            }
         }
     }
 
@@ -137,6 +133,10 @@ public class DetailsListActivity extends ToolbarActivity {
 
         rvItems.setLayoutManager(layoutManager);
         rvItems.setAdapter(adapter);
+    }
+
+    private long getListId() {
+        return getIntent().getLongExtra("LIST_ID", 0L);
     }
 
     private void displayEmptyStateIfEmpty(ItemAdapter adapter) {
@@ -149,15 +149,19 @@ public class DetailsListActivity extends ToolbarActivity {
     }
 
     private void loadData() {
-        RealmResults<Item> items = realm.where(Item.class).findAll();
-        adapter.setItems(items);
-        adapter.notifyDataSetChanged();
-        displayEmptyStateIfEmpty(adapter);
+        if (getListId() != 0L) {
+            RealmResults<Item> items = realm.where(Item.class)
+                    .equalTo("listId", getListId())
+                    .findAll();
+            adapter.setItems(items);
+            adapter.notifyDataSetChanged();
+            displayEmptyStateIfEmpty(adapter);
+        }
     }
 
     private void addItemToList(Item item) {
         realm.beginTransaction();
-        item.setId(getNextKey());
+        item.setId(Item.getNextKey());
         realm.copyToRealm(item);
         realm.commitTransaction();
 
@@ -166,57 +170,59 @@ public class DetailsListActivity extends ToolbarActivity {
 
     private void checkAllItems() {
         realm.beginTransaction();
-        List<Item> currentItems = realm.where(Item.class).findAll();
-        for (Item item : currentItems) {
-            item.setChecked(!allItemsSelected);
-        }
-        realm.commitTransaction();
+        if (getListId() != 0L) {
+            List<Item> currentItems = realm.where(Item.class)
+                    .equalTo("listId", getListId())
+                    .findAll();
+            for (Item item : currentItems) {
+                item.setChecked(!allItemsSelected);
+            }
+            realm.commitTransaction();
 
-        if (allItemsSelected) {
-            allItemsSelected = false;
-        } else {
-            allItemsSelected = true;
-        }
+            if (allItemsSelected) {
+                allItemsSelected = false;
+            } else {
+                allItemsSelected = true;
+            }
 
-        loadData();
+            loadData();
+        }
     }
 
     private void deleteAllSelectedItems() {
         realm.beginTransaction();
-        RealmResults<Item> selectedItems = realm.where(Item.class).equalTo("checked", true).findAll();
-        if (selectedItems.isEmpty()) {
+        if (getListId() != 0L) {
+            RealmResults<Item> selectedItems = realm.where(Item.class)
+                    .equalTo("listId", getListId())
+                    .equalTo("checked", true)
+                    .findAll();
+            if (selectedItems.isEmpty()) {
+                realm.commitTransaction();
+                return;
+            }
             realm.commitTransaction();
-            return;
+
+            new CustomAlertDialog()
+                    .setTitle(getString(R.string.list_deletion))
+                    .setMessage(getString(R.string.list_deletion_confirmation_message))
+                    .setPositiveListener(getString(R.string.yes), new CustomAlertDialog.PositiveListener() {
+                        @Override
+                        public void onNegativeClicked(CustomAlertDialog dialog) {
+                            realm.beginTransaction();
+                            RealmResults<Item> selectedItems = realm.where(Item.class).equalTo("checked", true).findAll();
+                            selectedItems.deleteAllFromRealm();
+                            realm.commitTransaction();
+
+                            loadData();
+                        }
+                    })
+                    .setNegativeListener(getString(R.string.cancel), new CustomAlertDialog.NegativeListener() {
+                        @Override
+                        public void onNegativeClicked(CustomAlertDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show(getSupportFragmentManager(), "deletion_dialog");
         }
-        realm.commitTransaction();
-
-        new CustomAlertDialog()
-                .setTitle(getString(R.string.list_deletion))
-                .setMessage(getString(R.string.list_deletion_confirmation_message))
-                .setPositiveListener(getString(R.string.yes), new CustomAlertDialog.PositiveListener() {
-                    @Override
-                    public void onNegativeClicked(CustomAlertDialog dialog) {
-                        realm.beginTransaction();
-                        RealmResults<Item> selectedItems = realm.where(Item.class).equalTo("checked", true).findAll();
-                        selectedItems.deleteAllFromRealm();
-                        realm.commitTransaction();
-
-                        loadData();
-                    }
-                })
-                .setNegativeListener(getString(R.string.cancel), new CustomAlertDialog.NegativeListener() {
-                    @Override
-                    public void onNegativeClicked(CustomAlertDialog dialog) {
-                        dialog.dismiss();
-                    }
-                })
-                .show(getSupportFragmentManager(), "deletion_dialog");
-    }
-
-    private int getNextKey() {
-        if (realm.where(Item.class).max("id") == null) {
-            return 1;
-        }
-        return realm.where(Item.class).max("id").intValue() + 1;
     }
 }

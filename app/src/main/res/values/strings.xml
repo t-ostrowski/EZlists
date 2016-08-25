@@ -19,11 +19,13 @@
     <string name="error.fill_all_fields">Fill in all fields please</string>
     <string name="error.logging_in">Error while logging in, please try again</string>
 
-    <string name="list.your_list">Your list</string>
+    <string name="list.your_lists">Your lists</string>
     <string name="list.deletion">Deletion</string>
     <string name="list.deletion_confirmation_message">Are you sure to want to delete all selected items?</string>
     <string name="list.list_empty_message">The list is empty, add items to start to use the application.</string>
-    <string name="list.add_new_item">Add new item</string>
+    <string name="list.no_list_message">You don\'t have any list, create one to start to use the application.</string>
+    <string name="list.add_new_item">Add new item&#8230;</string>
+    <string name="list.add_new_list">Add new list&#8230;</string>
 
     <string name="drawer.my_list">My list</string>
     <string name="drawer.my_account">My account</string>

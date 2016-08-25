@@ -19,11 +19,13 @@
     <string name="error.fill_all_fields">Veuillez renseigner tous les champs</string>
     <string name="error.logging_in">Erreur lors de la connexion, veuillez réessayer ultérieurement</string>
 
-    <string name="list.your_list">Votre liste</string>
+    <string name="list.your_lists">Vos listes</string>
     <string name="list.deletion">Suppression</string>
     <string name="list.deletion_confirmation_message">Êtes-vous sûr de vouloir supprimer tous les éléments sélectionnés ?</string>
     <string name="list.list_empty_message">La liste est vide pour le moment, ajoutez des éléments pour commencer à utiliser l\'application.</string>
-    <string name="list.add_new_item">Ajouter un nouvel élément</string>
+    <string name="list.no_list_message">Vous n\'avez pas de liste pour le moment, créez en une pour commencer à utiliser l\'application.</string>
+    <string name="list.add_new_item">Ajouter un nouvel élément&#8230;</string>
+    <string name="list.add_new_list">Ajouter une nouvelle liste&#8230;</string>
 
     <string name="drawer.my_list">Ma liste</string>
     <string name="drawer.my_account">Mon compte</string>

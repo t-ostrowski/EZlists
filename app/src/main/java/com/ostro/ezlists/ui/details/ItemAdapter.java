@@ -1,4 +1,4 @@
-package com.ostro.ezlists.ui.list;
+package com.ostro.ezlists.ui.details;
 
 import android.content.Context;
 import android.graphics.Paint;

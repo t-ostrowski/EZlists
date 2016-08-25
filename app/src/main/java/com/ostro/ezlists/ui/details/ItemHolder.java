@@ -1,4 +1,4 @@
-package com.ostro.ezlists.ui.list;
+package com.ostro.ezlists.ui.details;
 
 import android.support.annotation.Nullable;
 import android.view.View;

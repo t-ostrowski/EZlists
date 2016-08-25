@@ -6,7 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.ostro.ezlists.base.BaseActivity;
-import com.ostro.ezlists.ui.list.DetailsListActivity;
+import com.ostro.ezlists.ui.details.DetailsListActivity;
+import com.ostro.ezlists.ui.list.ListActivity;
 
 /**
  * Created by Thomas Ostrowski
@@ -52,9 +53,9 @@ public class SplashActivity extends BaseActivity {
         activityStopped = true;
     }
 
-    private void startDetailsListActivity() {
+    private void startListActivity() {
         isLookingForUser = false;
-        launchActivity(new Intent(this, DetailsListActivity.class));
+        launchActivity(new Intent(this, ListActivity.class));
     }
 
     private Runnable startActivity = new Runnable() {
@@ -81,7 +82,7 @@ public class SplashActivity extends BaseActivity {
         if (enableSplash && (!splashScreenIsFinished || activityStopped)) {
             return false;
         }
-        startDetailsListActivity();
+        startListActivity();
         return true;
     }
 }

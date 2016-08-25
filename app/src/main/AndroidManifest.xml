@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.list.DetailsListActivity" />
+        <activity android:name=".ui.list.ListActivity" />
+
+        <activity android:name=".ui.details.DetailsListActivity" />
 
     </application>
 

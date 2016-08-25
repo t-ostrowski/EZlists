@@ -1,5 +1,6 @@
 package com.ostro.ezlists.model;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -22,8 +23,9 @@ public class Item extends RealmObject {
         this.checked = false;
     }
 
-    public Item(String wording) {
+    public Item(String wording, long listId) {
         this.wording = wording;
+        this.listId = listId;
         this.checked = false;
     }
 
@@ -57,5 +59,13 @@ public class Item extends RealmObject {
 
     public void setListId(long listId) {
         this.listId = listId;
+    }
+
+    public static int getNextKey() {
+        Realm realm = Realm.getDefaultInstance();
+        if (realm.where(Item.class).max("id") == null) {
+            return 1;
+        }
+        return realm.where(Item.class).max("id").intValue() + 1;
     }
 }
