@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "438639067121",
-    "firebase_url": "https://shoppinglist-1b64a.firebaseio.com",
-    "project_id": "shoppinglist-1b64a",
-    "storage_bucket": "shoppinglist-1b64a.appspot.com"
+    "project_number": "336355859522",
+    "firebase_url": "https://ezlists-181e7.firebaseio.com",
+    "project_id": "ezlists-181e7",
+    "storage_bucket": "ezlists-181e7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438639067121:android:26c47dde8bd29fda",
+        "mobilesdk_app_id": "1:336355859522:android:56e53b834ddff09c",
         "android_client_info": {
-          "package_name": "com.ostro.myshoppinglist"
+          "package_name": "com.ostro.ezlists"
         }
       },
       "oauth_client": [
         {
-          "client_id": "438639067121-v9ofok3tb8lavo7m3b2s3vqknr27n92o.apps.googleusercontent.com",
+          "client_id": "336355859522-bgc9447jg1d0ajvvb9361rbnk1pkqf4p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA2UbYFjP6CNgImqJEcy4E6OuqUd1oY0W0"
+          "current_key": "AIzaSyAWcRGfpBrMBb6Om57GBFUM3JZNg9jMQBE"
         }
       ],
       "services": {

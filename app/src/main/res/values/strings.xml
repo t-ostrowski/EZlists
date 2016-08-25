@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyShoppingList</string>
+    <string name="app_name">EZlists</string>
 
     <string name="login.title">Log In</string>
     <string name="login.email">Email</string>
