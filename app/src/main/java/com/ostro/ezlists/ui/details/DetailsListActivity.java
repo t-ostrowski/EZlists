@@ -183,13 +183,23 @@ public class DetailsListActivity extends ToolbarActivity {
     }
 
     private void checkAllItems() {
-        realm.beginTransaction();
         if (getListId() != 0L) {
             List<Item> currentItems = realm.where(Item.class)
                     .equalTo("listId", getListId())
                     .findAll();
-            for (Item item : currentItems) {
-                item.setChecked(!allItemsSelected);
+            List<Item> currentCheckedItems = realm.where(Item.class)
+                    .equalTo("listId", getListId())
+                    .equalTo("checked", true)
+                    .findAll();
+            realm.beginTransaction();
+            if (currentItems.size() == currentCheckedItems.size()) {
+                for (Item item : currentItems) {
+                    item.setChecked(false);
+                }
+            } else {
+                for (Item item : currentItems) {
+                    item.setChecked(true);
+                }
             }
             realm.commitTransaction();
 
@@ -204,17 +214,14 @@ public class DetailsListActivity extends ToolbarActivity {
     }
 
     private void deleteAllSelectedItems() {
-        realm.beginTransaction();
         if (getListId() != 0L) {
             RealmResults<Item> selectedItems = realm.where(Item.class)
                     .equalTo("listId", getListId())
                     .equalTo("checked", true)
                     .findAll();
             if (selectedItems.isEmpty()) {
-                realm.commitTransaction();
                 return;
             }
-            realm.commitTransaction();
 
             new CustomAlertDialog()
                     .setTitle(getString(R.string.list_deletion))
@@ -222,8 +229,8 @@ public class DetailsListActivity extends ToolbarActivity {
                     .setPositiveListener(getString(R.string.yes), new CustomAlertDialog.PositiveListener() {
                         @Override
                         public void onNegativeClicked(CustomAlertDialog dialog) {
-                            realm.beginTransaction();
                             RealmResults<Item> selectedItems = realm.where(Item.class).equalTo("checked", true).findAll();
+                            realm.beginTransaction();
                             selectedItems.deleteAllFromRealm();
                             realm.commitTransaction();
 
