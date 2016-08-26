@@ -31,6 +31,9 @@
     <string name="list.delete">Supprimer</string>
     <string name="list.validate">Valider</string>
 
+    <string name="dialog.deletion_title">Suppression</string>
+    <string name="dialog.deletion_message">Êtes vous sûr de vouloir supprimer cette liste ainsi que tous les éléments associés ?</string>
+
     <string name="drawer.my_list">Ma liste</string>
     <string name="drawer.my_account">Mon compte</string>
     <string name="drawer.logout">Se déconnecter</string>

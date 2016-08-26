@@ -1,5 +1,6 @@
 package com.ostro.ezlists.ui.list;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,7 +12,9 @@ import com.ostro.ezlists.R;
 import com.ostro.ezlists.base.clickable_recycler.ClickableHolder;
 import com.ostro.ezlists.model.List;
 import com.ostro.ezlists.ui.details.DetailsListActivity;
+import com.ostro.ezlists.ui.list.dialog.DialogCloseListener;
 import com.ostro.ezlists.ui.list.dialog.EditListDialog;
+import com.ostro.ezlists.ui.list.dialog.EditListDialogOpenListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,10 +36,12 @@ public class ListHolder extends ClickableHolder {
     ImageView btnEditList;
 
     private ListAdapter adapter;
+    private Activity activity;
 
-    public ListHolder(View view, ListAdapter adapter) {
+    public ListHolder(View view, ListAdapter adapter, Activity activity) {
         super(view);
         this.adapter = adapter;
+        this.activity = activity;
     }
 
     @Nullable
@@ -64,7 +69,10 @@ public class ListHolder extends ClickableHolder {
             List list = adapter.getItem(getAdapterPosition());
             if (list != null) {
                 if (list.getId() > 0L) {
-                    EditListDialog.newInstance(list.getId());
+                    Activity activity = adapter.getActivity();
+                    if (activity instanceof EditListDialogOpenListener) {
+                        ((EditListDialogOpenListener) activity).handleOpenEditDialog(list.getId());
+                    }
                 }
             }
         }

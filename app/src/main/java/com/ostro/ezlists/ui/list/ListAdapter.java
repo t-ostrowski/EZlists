@@ -1,5 +1,6 @@
 package com.ostro.ezlists.ui.list;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,8 +17,11 @@ import com.ostro.ezlists.model.List;
 
 public class ListAdapter extends ClickableRecyclerAdapter<List, ListHolder> {
 
-    public ListAdapter(Context context) {
+    private Activity activity;
+
+    public ListAdapter(Context context, Activity activity) {
         super(context);
+        this.activity = activity;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class ListAdapter extends ClickableRecyclerAdapter<List, ListHolder> {
 
     @Override
     protected ListHolder getHolderView(View view, int viewType) {
-        return new ListHolder(view, this);
+        return new ListHolder(view, this, activity);
     }
 
     @Override
@@ -40,5 +44,9 @@ public class ListAdapter extends ClickableRecyclerAdapter<List, ListHolder> {
                 }
             }
         }
+    }
+
+    public Activity getActivity() {
+        return this.activity;
     }
 }

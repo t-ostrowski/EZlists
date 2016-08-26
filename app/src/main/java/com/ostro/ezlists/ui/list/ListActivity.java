@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +21,15 @@ import android.widget.TextView;
 import com.ostro.ezlists.R;
 import com.ostro.ezlists.base.ToolbarActivity;
 import com.ostro.ezlists.model.List;
+import com.ostro.ezlists.ui.list.dialog.DialogCloseListener;
 import com.ostro.ezlists.ui.list.dialog.EditListDialog;
+import com.ostro.ezlists.ui.list.dialog.EditListDialogOpenListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import timber.log.Timber;
 
 /**
  * Created by Thomas Ostrowski
@@ -33,7 +37,8 @@ import io.realm.RealmResults;
  * on 25/08/2016.
  */
 
-public class ListActivity extends ToolbarActivity {
+public class ListActivity extends ToolbarActivity implements EditListDialogOpenListener,
+        DialogCloseListener {
 
     @BindView(R.id.rv_list)
     RecyclerView rvLists;
@@ -103,7 +108,33 @@ public class ListActivity extends ToolbarActivity {
         return true;
     }
 
-    private void showEditListDialog(int listId) {
+    @Override
+    public void handleOpenEditDialog(long listId) {
+        showEditListDialog(listId);
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        dismissDialog("edit_list_dialog");
+        refreshList();
+    }
+
+    public void dismissDialog(String tag) {
+        Fragment prev = getFragmentManager().findFragmentByTag(tag);
+        if (prev != null) {
+            DialogFragment df = (DialogFragment) prev;
+            df.dismiss();
+        }
+    }
+
+    private void refreshList() {
+        for (int i=0; i<adapter.getItems().size(); i++) {
+            adapter.removeItem(i);
+        }
+        loadData();
+    }
+
+    private void showEditListDialog(long listId) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
@@ -125,7 +156,7 @@ public class ListActivity extends ToolbarActivity {
 
     private void initRecycler(Context context) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        adapter = new ListAdapter(context);
+        adapter = new ListAdapter(context, this);
 
         rvLists.setLayoutManager(layoutManager);
         rvLists.setAdapter(adapter);
