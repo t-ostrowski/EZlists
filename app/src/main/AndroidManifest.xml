@@ -21,9 +21,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.list.ListActivity" />
+        <activity
+            android:name=".ui.list.ListActivity"
+            android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".ui.details.DetailsListActivity" />
+        <activity
+            android:name=".ui.details.DetailsListActivity"
+            android:windowSoftInputMode="stateHidden" />
 
     </application>
 

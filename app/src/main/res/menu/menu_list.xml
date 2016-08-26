@@ -6,6 +6,6 @@
         app:showAsAction="ifRoom" android:icon="@drawable/ic_action_action_done_all" />
 
     <item android:id="@+id/action_delete_selection" android:title="Delete Selection"
-        app:showAsAction="ifRoom" android:icon="@drawable/ic_action_action_delete" />
+        app:showAsAction="ifRoom" android:icon="@drawable/ic_action_action_delete_yellow" />
 
 </menu>
