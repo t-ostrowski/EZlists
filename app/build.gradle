@@ -1,24 +1,80 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply from: "$rootDir/utils.gradle"
 apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
+
+    signingConfigs {
+        prod {
+            keyAlias 'EZLists'
+            storeFile file("$rootDir/ezlists.jks")
+            keyPassword 'ZNaE34HNvfpZxkY'
+            storePassword 'ZNaE34HNvfpZxkY'
+        }
+        dev {
+            keyAlias 'EZlistsDev'
+            storeFile file("$rootDir/ezlists_dev.jks")
+            keyPassword 'ezlistsostro'
+            storePassword 'ezlistsostro'
+        }
+    }
+
     defaultConfig {
         applicationId "com.ostro.ezlists"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    productFlavors {
+        dev {
+            minSdkVersion 21
+            applicationId "${defaultConfig.applicationId}.${name}"
+        }
+        prod {
+            minSdkVersion 16
+            applicationId "${defaultConfig.applicationId}"
+        }
+    }
+
     buildTypes {
         release {
+            productFlavors.dev.signingConfig signingConfigs.dev
+            productFlavors.prod.signingConfig signingConfigs.prod
+
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig null
+
+            productFlavors.dev.signingConfig signingConfigs.dev
+            productFlavors.prod.signingConfig signingConfigs.prod
+
+            versionNameSuffix "-DEV"
+            minifyEnabled false
+            debuggable true
+        }
     }
+
+    // rename the output apk file when it's a release version
+    applicationVariants.all { variant ->
+        def flavorName = variant.productFlavors.get(0).name;
+        def buildTypeName = variant.buildType.name;
+        if (buildTypeName == "release") {
+            variant.outputs.each { output ->
+                output.outputFile = new File("$rootDir/apk".toString(),
+                        "apk_release_" + flavorName + "-c" + versionCode + "_v" + versionName + ".apk");
+            }
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
@@ -31,7 +87,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.0'
+
+    final SUPPORT_LIBRARY_VERSION = '24.2.1'
+
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
@@ -40,9 +99,9 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.jakewharton.timber:timber:4.1.2'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:24.2.0'
+    compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
     testCompile 'junit:junit:4.12'
 }
