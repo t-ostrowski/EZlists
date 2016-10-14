@@ -1,3 +1,3 @@
 ##EZLists
 
-* Manage your personnal lists easily
+* Manage your personal lists easily
